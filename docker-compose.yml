@@ -1,0 +1,30 @@
+# Las dos bases de datos de CQRS:  docker compose up -d
+services:
+  write-db:
+    image: postgres:16-alpine
+    container_name: cqrs-write-postgres
+    environment:
+      POSTGRES_DB: cqrs_write
+      POSTGRES_USER: cqrs
+      POSTGRES_PASSWORD: cqrs
+    ports:
+      - "5433:5432"
+    volumes:
+      - write-data:/var/lib/postgresql/data
+
+  read-db:
+    image: mysql:8.4
+    container_name: cqrs-read-mysql
+    environment:
+      MYSQL_DATABASE: cqrs_read
+      MYSQL_USER: cqrs
+      MYSQL_PASSWORD: cqrs
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - read-data:/var/lib/mysql
+
+volumes:
+  write-data:
+  read-data:
