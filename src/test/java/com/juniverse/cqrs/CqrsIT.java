@@ -9,12 +9,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.juniverse.cqrs.command.OrderCommandHandler;
-import com.juniverse.cqrs.command.OrderWriteRepository;
-import com.juniverse.cqrs.event.LineItem;
-import com.juniverse.cqrs.projection.OrderProjector;
-import com.juniverse.cqrs.projection.ProjectionRunner;
-import com.juniverse.cqrs.query.OrderQueryService;
+import com.juniverse.cqrs.service.command.OrderCommandHandler;
+import com.juniverse.cqrs.repository.OrderWriteRepository;
+import com.juniverse.cqrs.model.event.LineItem;
+import com.juniverse.cqrs.service.projection.OrderProjector;
+import com.juniverse.cqrs.service.projection.ProjectionRunner;
+import com.juniverse.cqrs.service.query.OrderQueryService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

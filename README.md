@@ -69,14 +69,17 @@ Como son dos bases distintas no hay una transacción que las abarque, así que l
 
 ```text
 src/main/java/com/juniverse/cqrs/
-├── command/      # Order (agregado), OrderCommandHandler, OrderWriteRepository, CommandController
-├── event/        # DomainEvent (sealed), OrderCreated/Confirmed/Cancelled, EventStore
-├── projection/   # OrderProjector, ProjectionRunner, ProjectionAdminController
-├── query/        # OrderQueryService, vistas (records) y QueryController
-├── config/       # dos DataSource/JdbcClient/transacciones, creación del esquema
-└── web/          # ApiExceptionHandler (Problem Details)
-src/main/resources/write-schema.sql   # PostgreSQL: orders, order_lines, domain_events
-src/main/resources/read-schema.sql    # MySQL: order_summary, order_line_read, customer_stats, product_sales, projection_checkpoint
+├── controller/   # CommandController, QueryController, ProjectionAdminController
+├── service/
+│   ├── command/      # OrderCommandHandler
+│   ├── query/        # OrderQueryService
+│   └── projection/   # OrderProjector, ProjectionRunner
+├── repository/   # OrderWriteRepository, EventStore
+├── model/        # Order (agregado), OrderStatus
+│   └── event/    # DomainEvent (sealed), OrderCreated/Confirmed/Cancelled, LineItem, StoredEvent
+├── dto/          # vistas de lectura (records)
+├── exception/    # excepciones de dominio y ApiExceptionHandler (Problem Details)
+└── config/       # dos DataSource/JdbcClient/transacciones, creación del esquema, CqrsProperties
 ```
 
 Las dos bases se configuran por separado (`app.datasource.write.*` y `app.datasource.read.*`), cada una con su pool, su `JdbcClient` y su gestor de transacciones (`@Transactional("writeTx")` en comandos).
