@@ -1,14 +1,9 @@
 package com.juniverse.cqrs.controller;
 
+import com.juniverse.cqrs.dto.CancelRequest;
+import com.juniverse.cqrs.dto.CreateOrderRequest;
 import com.juniverse.cqrs.model.event.LineItem;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -29,40 +24,6 @@ import com.juniverse.cqrs.service.command.OrderCommandHandler;
 @RestController
 @RequestMapping("/api/commands/orders")
 public class CommandController {
-
-    /**
-     * Línea de la petición.
-     *
-     * @param sku código
-     * @param name nombre
-     * @param quantity cantidad
-     * @param unitPrice precio unitario
-     */
-    public record LineRequest(
-            @NotBlank(message = "El SKU es obligatorio") @Size(max = 40) String sku,
-            @NotBlank(message = "El nombre del producto es obligatorio") @Size(max = 100) String name,
-            @Min(value = 1, message = "La cantidad mínima es 1") int quantity,
-            @NotNull(message = "El precio es obligatorio") @DecimalMin(value = "0.01", message = "El precio debe ser mayor que cero") BigDecimal unitPrice) {
-    }
-
-    /**
-     * Comando de creación.
-     *
-     * @param customer cliente
-     * @param lines líneas
-     */
-    public record CreateOrderRequest(
-            @NotBlank(message = "El cliente es obligatorio") @Size(max = 100) String customer,
-            @NotEmpty(message = "El pedido debe tener al menos una línea") List<@Valid LineRequest> lines) {
-    }
-
-    /**
-     * Comando de cancelación.
-     *
-     * @param reason motivo opcional
-     */
-    public record CancelRequest(@Size(max = 200) String reason) {
-    }
 
     private final OrderCommandHandler handler;
 

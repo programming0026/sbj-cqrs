@@ -77,7 +77,7 @@ src/main/java/com/juniverse/cqrs/
 ├── repository/   # OrderWriteRepository, EventStore
 ├── model/        # Order (agregado), OrderStatus
 │   └── event/    # DomainEvent (sealed), OrderCreated/Confirmed/Cancelled, LineItem, StoredEvent
-├── dto/          # vistas de lectura (records)
+├── dto/          # peticiones (CreateOrderRequest, LineRequest, CancelRequest) y vistas de lectura (records)
 ├── exception/    # excepciones de dominio y ApiExceptionHandler (Problem Details)
 └── config/       # dos DataSource/JdbcClient/transacciones, creación del esquema, CqrsProperties
 ```
